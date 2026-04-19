@@ -17,11 +17,14 @@
             background: #000000;
             color: #ffffff;
             font-family: 'Inter', sans-serif;
-            min-height: 200vh;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            height: 100vh;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: center;
-            padding-top: 40vh;
             position: relative;
         }
 
@@ -30,75 +33,37 @@
             left: 30px;
             top: 50vh;
             transform: translateY(-50%);
-            width: 280px;
+            width: 220px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px;
+            padding: 25px 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-        }
-
-        .track-info {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+            gap: 25px;
+            opacity: 0;
         }
 
         .album-art {
-            width: 40px;
-            height: 40px;
+            width: 80px;
+            height: 80px;
             background: #222;
             border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-        }
-
-        .track-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .track-name { font-weight: 700; font-size: 0.9rem; }
-        .artist-name { color: #888; font-size: 0.75rem; }
-
-        .progress-container {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
-
-        .progress-fill {
-            width: 0%;
-            height: 100%;
-            background: #fff;
-            transition: width 0.1s linear;
-        }
-
-        .time-codes {
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            font-family: monospace;
-            color: #666;
+            font-size: 30px;
+            margin: 0 auto;
+            opacity: 0;
         }
 
         .controls-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 90px;
+            height: 80px;
+            padding: 0 10px;
         }
 
         .play-btn {
@@ -113,6 +78,7 @@
             align-items: center;
             justify-content: center;
             transition: 0.3s;
+            opacity: 0;
         }
 
         .play-btn:hover {
@@ -127,6 +93,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0;
         }
 
         .vol-tooltip {
@@ -166,9 +133,37 @@
             cursor: pointer;
         }
 
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #fff;
+            transition: width 0.1s linear;
+        }
+
+        .time-codes {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            font-family: monospace;
+            color: #666;
+        }
+
         .container {
             text-align: center;
-            position: relative;
         }
 
         .name {
@@ -191,71 +186,131 @@
             opacity: 0;
         }
 
+        .socials-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .social-link {
+            padding: 15px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .social-link span {
+            font-size: 0.7rem;
+            color: #888;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: none;
+        }
+
+        .social-link:hover {
+            background: white;
+            color: black;
+            border-color: white;
+        }
+
+        .social-link:hover span {
+            color: #333;
+        }
+
         @keyframes slideDown {
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+            to { opacity: 1; }
         }
 
-        .animate-name {
-            animation: slideDown 1.1s forwards ease-out;
+        @keyframes widgetAppear {
+            to { opacity: 1; transform: translateY(-50%) scale(1); }
         }
 
-        .animate-hello {
-            animation: fadeIn 1s forwards 2s;
+        @keyframes elementAppear {
+            from { transform: translateY(15px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
+
+        .animate-name { animation: slideDown 1.1s forwards ease-out; }
+        .animate-hello { animation: fadeIn 1s forwards 2s; }
+        
+        .animate-widget { animation: fadeIn 0.8s forwards; }
+        .animate-icon { animation: elementAppear 0.6s forwards; }
+        .animate-vol { animation: elementAppear 0.6s forwards; }
+        .animate-time { animation: elementAppear 0.6s forwards; }
+        .animate-play { animation: elementAppear 0.6s forwards; }
     </style>
 </head>
 <body>
 
-    <div class="media-sidebar">
-        <div class="track-info">
-            <div class="album-art">♫</div>
-            <div class="track-text">
-                <span class="track-name">a-cup freestyle</span>
-                <span class="artist-name">issbrokie</span>
-            </div>
-        </div>
-
-        <div class="progress-container">
-            <div class="progress-bar-bg">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="time-codes">
-                <span id="currentTime">0:00</span>
-                <span id="durationTime">0:00</span>
-            </div>
-        </div>
-
-        <div class="controls-row">
-            <button class="play-btn" id="playBtn">▶</button>
+    <div class="hero-section">
+        <div class="media-sidebar" id="mediaSidebar">
+            <div class="album-art" id="elIcon">♫</div>
             
-            <div class="vol-wrapper">
-                <div class="vol-tooltip" id="volValue">50</div>
-                <input type="range" class="vol-slider" id="volumeSlider" min="0" max="100" value="50">
+            <div class="controls-row">
+                <button class="play-btn" id="playBtn">▶</button>
+                <div class="vol-wrapper" id="elVol">
+                    <div class="vol-tooltip" id="volValue">50</div>
+                    <input type="range" class="vol-slider" id="volumeSlider" min="0" max="100" value="50">
+                </div>
             </div>
+
+            <div class="progress-container" id="elTime">
+                <div class="progress-bar-bg">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="time-codes">
+                    <span id="currentTime">0:00</span>
+                    <span id="durationTime">0:00</span>
+                </div>
+            </div>
+
+            <audio id="mainAudio" src="https://files.catbox.moe/uozrbe.mp3"></audio>
         </div>
 
-        <audio id="mainAudio" src="https://files.catbox.moe/uozrbe.mp3"></audio>
+        <div class="container">
+            <div class="name" id="name">karasko</div>
+            <div class="hello" id="hello">hello guys</div>
+        </div>
     </div>
 
-    <div class="container">
-        <div class="name" id="name">karasko</div>
-        <div class="hello" id="hello">hello guys</div>
+    <div class="socials-section">
+        <a href="https://discord.com/users/sin_shlyhu" target="_blank" class="social-link">
+            Discord
+            <span>sin_shlyhu</span>
+        </a>
+        <a href="https://t.me/visulavskiq" target="_blank" class="social-link">
+            Telegram
+            <span>@visulavskiq</span>
+        </a>
     </div>
 
     <script>
         const nameEl = document.getElementById('name');
         const helloEl = document.getElementById('hello');
-        const audio = document.getElementById('mainAudio');
+        
+        const mediaSidebar = document.getElementById('mediaSidebar');
+        const elIcon = document.getElementById('elIcon');
+        const elVol = document.getElementById('elVol');
+        const elTime = document.getElementById('elTime');
         const playBtn = document.getElementById('playBtn');
+
+        const audio = document.getElementById('mainAudio');
         const progressFill = document.getElementById('progressFill');
         const currentTimeEl = document.getElementById('currentTime');
         const durationTimeEl = document.getElementById('durationTime');
@@ -263,13 +318,14 @@
         const volValue = document.getElementById('volValue');
 
         window.onload = () => {
-            setTimeout(() => {
-                nameEl.classList.add('animate-name');
-            }, 200);
+            setTimeout(() => nameEl.classList.add('animate-name'), 200);
+            setTimeout(() => helloEl.classList.add('animate-hello'), 2200);
 
-            setTimeout(() => {
-                helloEl.classList.add('animate-hello');
-            }, 2200);
+            setTimeout(() => mediaSidebar.classList.add('animate-widget'), 2800);
+            setTimeout(() => elIcon.classList.add('animate-icon'), 3300);
+            setTimeout(() => elVol.classList.add('animate-vol'), 3800);
+            setTimeout(() => elTime.classList.add('animate-time'), 4300);
+            setTimeout(() => playBtn.classList.add('animate-play'), 4800);
         };
 
         playBtn.addEventListener('click', () => {
