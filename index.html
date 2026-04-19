@@ -17,292 +17,282 @@
             background: #000000;
             color: #ffffff;
             font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
+            height: 100vh; /* Высота на весь экран */
+            width: 100vw;
+            overflow: hidden; /* Запрещаем прокрутку */
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-top: 5vh; /* Отступ от самого верха */
         }
 
-        .hero-section {
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
+        /* --- ВЕРХНЯЯ ЧАСТЬ (НИК И СОЦСЕТИ) --- */
+        .header-section {
+            text-align: center;
+            z-index: 10;
         }
 
-        /* --- ПЛЕЕР --- */
-        .media-sidebar {
-            position: absolute;
-            left: 30px;
-            top: 50vh;
-            transform: translateY(-50%);
-            width: 220px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 25px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
+        .name {
+            font-size: clamp(2.5rem, 10vw, 6rem);
+            font-weight: 900;
+            letter-spacing: -4px;
+            line-height: 1;
             opacity: 0;
+            transform: translateY(-50px);
+            animation: slideDown 1s forwards ease-out;
         }
 
-        .album-art {
-            width: 80px;
-            height: 80px;
-            background: #222;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            margin: 0 auto;
+        .hello {
+            font-size: clamp(0.8rem, 3vw, 1.5rem);
+            font-weight: 400;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin-top: 10px;
+            color: #888;
             opacity: 0;
+            animation: fadeIn 0.8s forwards 1s;
         }
 
-        .controls-row {
+        .socials {
+            margin-top: 20px;
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 80px;
-            padding: 0 10px;
+            gap: 20px;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 0.8s forwards 1.5s;
         }
 
-        .play-btn {
-            background: none;
-            border: 2px solid #fff;
+        .social-link {
             color: #fff;
-            width: 60px;
-            height: 60px;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: 0.3s;
-            opacity: 0;
         }
 
-        .play-btn:hover {
+        .social-link:hover {
             background: #fff;
             color: #000;
         }
 
-        .vol-wrapper {
-            position: relative;
-            width: 40px;
-            height: 80px;
+        /* --- ПЛЕЕР (ЦЕНТР) --- */
+        .player-wrapper {
+            flex-grow: 1; /* Занимает оставшееся место */
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
+            width: 100%;
         }
 
-        .vol-tooltip {
-            position: absolute;
-            top: -25px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #fff;
+        .media-card {
+            width: 300px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             opacity: 0;
-            transition: opacity 0.2s;
-            pointer-events: none;
+            animation: fadeIn 1s forwards 2s;
         }
 
-        .vol-wrapper:hover .vol-tooltip { opacity: 1; }
+        .track-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .track-icon {
+            width: 60px;
+            height: 60px;
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .track-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .track-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .track-name { font-size: 0.9rem; font-weight: 700; }
+        .track-author { font-size: 0.7rem; color: #666; }
+
+        .controls-main {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .play-btn {
+            background: white;
+            color: black;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .volume-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 60%;
+        }
 
         .vol-slider {
+            flex-grow: 1;
             appearance: none;
-            width: 80px;
-            height: 6px;
-            background: #111;
-            border: 1px solid #800080;
-            border-radius: 4px;
+            height: 3px;
+            background: #333;
             outline: none;
-            transform: rotate(-90deg);
-            cursor: pointer;
         }
 
         .vol-slider::-webkit-slider-thumb {
             appearance: none;
-            width: 16px;
-            height: 16px;
+            width: 10px;
+            height: 10px;
+            background: white;
             border-radius: 50%;
-            background: #fff;
-            border: 2px solid #800080;
             cursor: pointer;
         }
 
-        .progress-container {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            opacity: 0;
+        .progress-bar-container {
+            width: 100%;
         }
 
-        .progress-bar-bg {
+        .progress-bg {
             width: 100%;
             height: 4px;
             background: rgba(255, 255, 255, 0.1);
             position: relative;
+            cursor: pointer;
         }
 
         .progress-fill {
             width: 0%;
             height: 100%;
             background: #fff;
-            transition: width 0.1s linear;
         }
 
-        .time-codes {
+        .time-info {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
-            font-family: monospace;
-            color: #666;
+            font-size: 0.65rem;
+            color: #555;
+            margin-top: 5px;
         }
 
-        /* --- ЦЕНТРАЛЬНЫЙ ТЕКСТ --- */
-        .container { text-align: center; }
-
-        .name {
-            font-size: clamp(3rem, 15vw, 8.5rem);
-            font-weight: 900;
-            letter-spacing: -6px;
-            line-height: 1;
-            opacity: 0;
-            transform: translateY(-120px);
-        }
-
-        .hello {
-            font-size: clamp(1rem, 4vw, 2.4rem);
-            font-weight: 400;
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            margin-top: 30px;
-            opacity: 0;
-        }
-
-        /* --- СОЦСЕТИ --- */
-        .socials-section {
-            padding-bottom: 100px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .social-link {
-            padding: 15px 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: transparent;
-            color: white;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: all 0.3s;
-        }
-
-        .social-link:hover {
-            background: white;
-            color: black;
-            border-color: white;
-        }
-
-        /* --- АНИМАЦИИ --- */
+        /* Анимации */
         @keyframes slideDown { to { transform: translateY(0); opacity: 1; } }
         @keyframes fadeIn { to { opacity: 1; } }
-        @keyframes elementAppear {
-            from { transform: translateY(15px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .animate-name { animation: slideDown 1.1s forwards ease-out; }
-        .animate-hello { animation: fadeIn 0.8s forwards 1.2s; } /* Ускорил до 1.2s */
-        .animate-widget { animation: fadeIn 0.8s forwards 1.8s; }
-        .animate-icon { animation: elementAppear 0.6s forwards 2.2s; }
-        .animate-vol { animation: elementAppear 0.6s forwards 2.5s; }
-        .animate-time { animation: elementAppear 0.6s forwards 2.8s; }
-        .animate-play { animation: elementAppear 0.6s forwards 3.1s; }
     </style>
 </head>
 <body>
 
-    <div class="hero-section">
-        <div class="media-sidebar" id="mediaSidebar">
-            <div class="album-art" id="elIcon">♫</div>
-            
-            <div class="controls-row">
-                <button class="play-btn" id="playBtn">▶</button>
-                <div class="vol-wrapper" id="elVol">
-                    <div class="vol-tooltip" id="volValue">50</div>
-                    <input type="range" class="vol-slider" id="volumeSlider" min="0" max="100" value="50">
-                </div>
-            </div>
-
-            <div class="progress-container" id="elTime">
-                <div class="progress-bar-bg">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-                <div class="time-codes">
-                    <span id="currentTime">0:00</span>
-                    <span id="durationTime">0:00</span>
-                </div>
-            </div>
-
-            <audio id="mainAudio" src="track.mp3"></audio>
-        </div>
-
-        <div class="container">
-            <div class="name" id="name">karasko</div>
-            <div class="hello" id="hello">hello guys</div>
+    <div class="header-section">
+        <div class="name">karasko</div>
+        <div class="hello">hello guys</div>
+        <div class="socials">
+            <a href="https://t.me/visulavskiq" target="_blank" class="social-link">Telegram</a>
+            <a href="https://discord.com/users/sin_shlyhu" target="_blank" class="social-link">Discord</a>
         </div>
     </div>
 
-    <div class="socials-section">
-        <a href="https://discord.com/users/sin_shlyhu" target="_blank" class="social-link">Discord</a>
-        <a href="https://t.me/visulavskiq" target="_blank" class="social-link">Telegram</a>
+    <div class="player-wrapper">
+        <div class="media-card">
+            <div class="track-info">
+                <div class="track-icon">
+                    <img src="cover.jpg" alt="♫" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjMjIyIi8+PC9zdmc+'">
+                </div>
+                <div class="track-text">
+                    <span class="track-name">WTFG!</span>
+                    <span class="track-author">ISSBROKIE · BLCKK</span>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bg" id="progLine">
+                    <div class="progress-fill" id="progFill"></div>
+                </div>
+                <div class="time-info">
+                    <span id="currTime">0:00</span>
+                    <span id="durTime">0:00</span>
+                </div>
+            </div>
+
+            <div class="controls-main">
+                <button class="play-btn" id="playToggle">▶</button>
+                <div class="volume-container">
+                    <span style="font-size: 0.7rem">vol</span>
+                    <input type="range" class="vol-slider" id="volControl" min="0" max="100" value="50">
+                </div>
+            </div>
+
+            <audio id="audioTrack" src="track.mp3"></audio>
+        </div>
     </div>
 
     <script>
-        const elements = {
-            name: document.getElementById('name'),
-            hello: document.getElementById('hello'),
-            widget: document.getElementById('mediaSidebar'),
-            icon: document.getElementById('elIcon'),
-            vol: document.getElementById('elVol'),
-            time: document.getElementById('elTime'),
-            play: document.getElementById('playBtn'),
-            audio: document.getElementById('mainAudio'),
-            fill: document.getElementById('progressFill'),
-            curr: document.getElementById('currentTime'),
-            dur: document.getElementById('durationTime'),
-            vSlider: document.getElementById('volumeSlider'),
-            vTooltip: document.getElementById('volValue')
-        };
+        const audio = document.getElementById('audioTrack');
+        const playBtn = document.getElementById('playToggle');
+        const progFill = document.getElementById('progFill');
+        const progLine = document.getElementById('progLine');
+        const currTimeTxt = document.getElementById('currTime');
+        const durTimeTxt = document.getElementById('durTime');
+        const volControl = document.getElementById('volControl');
 
-        window.onload = () => {
-            elements.name.classList.add('animate-name');
-            elements.hello.classList.add('animate-hello');
-            elements.widget.classList.add('animate-widget');
-            elements.icon.classList.add('animate-icon');
-            elements.vol.classList.add('animate-vol');
-            elements.time.classList.add('animate-time');
-            elements.play.classList.add('animate-play');
-        };
-
-        elements.play.onclick = () => {
-            if (elements.audio.paused) {
-                elements.audio.play();
-                elements.play.innerText = "II";
+        // Play/Pause
+        playBtn.onclick = () => {
+            if (audio.paused) {
+                audio.play();
+                playBtn.innerText = "II";
             } else {
-                elements.audio.pause();
-                elements.play.innerText = "▶";
+                audio.pause();
+                playBtn.innerText = "▶";
             }
+        };
+
+        // Обновление времени и полоски
+        audio.ontimeupdate = () => {
+            const pct = (audio.currentTime / audio.duration) * 100;
+            progFill.style.width = (pct || 0) + '%';
+            currTimeTxt.innerText = formatTime(audio.currentTime);
+        };
+
+        audio.onloadedmetadata = () => {
+            durTimeTxt.innerText = formatTime(audio.duration);
+        };
+
+        // Перемотка кликом по полоске
+        progLine.onclick = (e) => {
+            const width = progLine.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            audio.currentTime = (clickX / width) * duration;
+        };
+
+        // Громкость
+        volControl.oninput = (e) => {
+            audio.volume = e.target.value / 100;
         };
 
         function formatTime(s) {
@@ -312,28 +302,8 @@
             return m + ":" + (sec < 10 ? '0' + sec : sec);
         }
 
-        elements.audio.ontimeupdate = () => {
-            const p = (elements.audio.currentTime / elements.audio.duration) * 100;
-            elements.fill.style.width = (p || 0) + '%';
-            elements.curr.innerText = formatTime(elements.audio.currentTime);
-        };
-
-        elements.audio.onloadedmetadata = () => {
-            elements.dur.innerText = formatTime(elements.audio.duration);
-        };
-
-        elements.vSlider.oninput = (e) => {
-            const v = e.target.value;
-            elements.audio.volume = v / 100;
-            elements.vTooltip.innerText = v;
-        };
-
-        elements.audio.onended = () => {
-            elements.play.innerText = "▶";
-            elements.fill.style.width = '0%';
-        };
-        
-        elements.audio.volume = 0.5;
+        audio.onended = () => { playBtn.innerText = "▶"; progFill.style.width = '0%'; };
+        audio.volume = 0.5;
     </script>
 </body>
 </html>
