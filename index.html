@@ -3,15 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Karasko • Main</title>
+    <title>karasko</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-        :root {
-            --bg: #0a0a0a;
-            --accent: #00ff9d;
-            --text: #e0e0e0;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
         * {
             margin: 0;
@@ -20,133 +14,124 @@
         }
 
         body {
+            background: #000000;
+            color: #ffffff;
             font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        header {
+            overflow: hidden;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
             position: relative;
         }
 
-        .hero {
-            z-index: 2;
-        }
-
-        h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, #00ff9d, #00b8ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p {
-            font-size: 1.4rem;
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-            opacity: 0.9;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 14px 32px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-primary {
-            background: var(--accent);
-            color: #000;
-        }
-
-        .btn-primary:hover {
-            background: #00cc7a;
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 255, 157, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid var(--accent);
-        }
-
-        .btn-secondary:hover {
-            background: var(--accent);
-            color: #000;
-        }
-
-        .section {
-            padding: 100px 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        footer {
+        .container {
             text-align: center;
-            padding: 40px;
-            opacity: 0.6;
-            font-size: 0.9rem;
+            position: relative;
         }
 
-        /* Простые частицы на фоне (опционально) */
-        .particles {
+        .hello {
+            font-size: 2.2rem;
+            font-weight: 400;
+            opacity: 0;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .name {
+            font-size: 7.5rem;
+            font-weight: 900;
+            letter-spacing: -4px;
+            position: relative;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(-150px);
+        }
+
+        .bracket-left,
+        .bracket-right {
+            font-size: 7.5rem;
+            font-weight: 900;
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            pointer-events: none;
-            overflow: hidden;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .bracket-left {
+            left: -80px;
+        }
+
+        .bracket-right {
+            right: -80px;
+        }
+
+        /* Анимации */
+        @keyframes slideDown {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-name {
+            animation: slideDown 1.2s forwards ease-out;
+        }
+
+        .animate-hello {
+            animation: fadeInUp 1s forwards 0.6s;
+        }
+
+        .animate-brackets {
+            opacity: 1 !important;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="particles"></div>
-        <div class="hero">
-            <h1>Привет, я [karas]</h1>
-            <p>я начинающий креатор в roblox. пишу лёгкие скрипты</p>
-            
-            <div class="buttons">
-                <a href="https://discord.gg/sin_shlyhu" class="btn btn-primary" target="_blank">Discord</a>
-                <a href="https://github.com/karasko112" class="btn btn-secondary" target="_blank">GitHub</a>
-                <!-- Добавь ещё кнопки сюда -->
-                <!-- <a href="#" class="btn btn-secondary">Telegram</a> -->
-            </div>
-        </div>
-    </header>
-
-    <div class="section">
-        <h2 style="text-align: center; margin-bottom: 40px; font-size: 2.5rem;">Что здесь есть</h2>
-        <p style="text-align: center; font-size: 1.2rem; opacity: 0.85;">
-            Пока просто красивый лендинг. Потом можно добавить раздел с проектами, скриптами, новостями и т.д.
-        </p>
+    <div class="container">
+        <div class="hello" id="hello">hello guys</div>
+        <div class="name" id="name">karasko</div>
+        <span class="bracket-left" id="left">[</span>
+        <span class="bracket-right" id="right">]</span>
     </div>
 
-    <footer>
-        © 2026 ///create by karasko///
-    </footer>
+    <script>
+        const name = document.getElementById('name');
+        const hello = document.getElementById('hello');
+        const left = document.getElementById('left');
+        const right = document.getElementById('right');
+
+        // Запускаем анимацию сразу при загрузке страницы
+        window.onload = () => {
+            // 1. Ник выезжает сверху вниз
+            setTimeout(() => {
+                name.classList.add('animate-name');
+            }, 300);
+
+            // 2. Появляется "hello guys"
+            setTimeout(() => {
+                hello.classList.add('animate-hello');
+            }, 1200);
+
+            // 3. Выезжают квадратные скобки
+            setTimeout(() => {
+                left.style.transitionDelay = '0.3s';
+                right.style.transitionDelay = '0.3s';
+                left.classList.add('animate-brackets');
+                right.classList.add('animate-brackets');
+            }, 2200);
+        };
+    </script>
 
 </body>
 </html>
