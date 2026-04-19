@@ -24,103 +24,132 @@
             justify-content: center;
         }
 
-        /* Главная обертка для размещения виджета и ника в ряд */
+        /* Общая обертка */
         .main-wrapper {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 40px; /* Расстояние между плеером и ником */
+            gap: 40px;
+            padding: 20px;
         }
 
-        /* Стиль "Жидкое стекло" */
-        .music-widget {
-            display: flex;
-            align-items: center;
-            padding: 15px;
+        /* --- МЕДИАПЛЕЕР (Виджет) --- */
+        .media-bar {
+            width: clamp(300px, 90vw, 500px);
             background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 0; /* Острые края */
-            position: relative;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
             opacity: 0;
-            transform: translateX(-50px);
+            transform: translateY(-20px);
             transition: all 1s ease;
         }
 
-        .widget-visible {
-            opacity: 1;
-            transform: translateX(0);
+        .widget-visible { opacity: 1; transform: translateY(0); }
+
+        /* Верхняя часть: Инфо о треке */
+        .bar-track { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            opacity: 0; 
+            transform: translateY(-50px);
         }
 
-        /* Иконка трека */
-        .track-icon {
-            width: 50px;
-            height: 50px;
-            background: #222;
-            margin-right: 15px;
-            opacity: 0;
-            transform: translateY(-100px);
+        .bar-album-placeholder {
+            width: 45px;
+            height: 45px;
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 20px;
         }
 
-        .icon-fly-down {
-            animation: flyDown 0.8s forwards;
-        }
+        .bar-text { flex-grow: 1; }
+        .bar-track-name { font-weight: 700; font-size: 1rem; }
+        .bar-artist-name { color: #666; font-size: 0.8rem; }
 
-        /* Кнопки управления */
-        .player-controls {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
+        /* Прогресс-бар */
+        .bar-progress { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 0.7rem; 
+            font-family: monospace;
             opacity: 0;
         }
 
-        .controls-appear {
-            animation: fadeIn 0.5s forwards;
+        .bar-scrubber {
+            flex-grow: 1;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
         }
 
-        .btn {
+        .bar-scrubber-filled {
+            width: 15%; /* Имитация прогресса */
+            height: 100%;
+            background: white;
+        }
+
+        /* Кнопки управления */
+        .bar-controls { 
+            display: flex; 
+            justify-content: space-around; 
+            align-items: center;
+            opacity: 0;
+        }
+
+        .bar-btn {
             background: none;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: none;
             color: white;
             cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-size: 10px;
             font-weight: 900;
-            padding: 4px 8px;
-            text-transform: uppercase;
+            font-size: 0.8rem;
             transition: 0.3s;
         }
 
-        .btn:hover { background: white; color: black; }
-
-        /* Громкость слева */
-        .volume-container {
+        .play-main {
+            font-size: 1.8rem;
+            border: 2px solid white;
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
-            transform: rotate(-90deg);
-            width: 0;
-            overflow: hidden;
-            transition: width 0.5s ease;
-            margin-right: -20px;
-            margin-left: -30px;
+            justify-content: center;
         }
 
-        .volume-show {
-            width: 80px;
+        /* Громкость */
+        .bar-volume {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 80%;
+            margin: 0 auto;
+            opacity: 0;
         }
 
-        input[type="range"] {
-            cursor: pointer;
-            accent-color: #ffffff;
-            width: 60px;
+        .vol-line {
+            flex-grow: 1;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        /* Контейнер ника */
-        .container { text-align: center; position: relative; }
+        .vol-line-filled {
+            width: 60%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- ТВОЙ НИК И ТЕКСТ --- */
+        .container { text-align: center; }
 
         .name {
             font-size: clamp(3rem, 15vw, 8.5rem);
@@ -128,108 +157,119 @@
             letter-spacing: -6px;
             line-height: 1;
             opacity: 0;
-            transform: translateY(-120px);
+            transform: translateY(-100px);
         }
 
         .hello {
-            font-size: 1.5rem;
+            font-size: clamp(1rem, 4vw, 2.4rem);
+            font-weight: 400;
             letter-spacing: 10px;
             text-transform: uppercase;
             margin-top: 20px;
             opacity: 0;
         }
 
-        /* Анимации */
-        @keyframes flyDown {
-            to { transform: translateY(0); opacity: 1; }
+        /* Глитч-эффект для иконок */
+        .glitch {
+            text-shadow: -2px 0 #ff003c, 2px 0 #3c00ff;
         }
 
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
+        /* Анимации появления */
+        .animate { animation: fadeIn 0.8s forwards ease-out; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
 
-        .animate-name { animation: flyDown 1.1s forwards ease-out; }
-        .animate-hello { animation: fadeIn 1s forwards 2s; }
+        .slide-down { animation: slideDown 1.1s forwards ease-out; }
+        @keyframes slideDown { to { opacity: 1; transform: translateY(0); } }
 
     </style>
 </head>
 <body>
 
     <div class="main-wrapper">
-        <div class="music-widget" id="widget">
-            <div class="volume-container" id="volCont">
-                <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5">
-            </div>
-
-            <div class="track-icon" id="icon">♫</div>
-
-            <div class="player-controls" id="controls">
-                <button class="btn" id="playBtn">Play</button>
-                <button class="btn" id="stopBtn">Stop</button>
-            </div>
+        
+        <div class="media-bar" id="widget">
             
-            <audio id="myaudio" src="https://open.spotify.com/track/3Zz4BKWJamsN9Cq8NekyfM?si=02f3b844b84e48cd"></audio>
+            <div class="bar-track" id="trackInfo">
+                <div class="bar-album-placeholder glitch">♫</div>
+                <div class="bar-text">
+                    <div class="bar-track-name">karasko_sound</div>
+                    <div class="bar-artist-name">Spotify Stream</div>
+                </div>
+                <div class="glitch" style="font-size: 12px;">▲</div>
+            </div>
+
+            <div class="bar-progress" id="progressInfo">
+                <span>0:51</span>
+                <div class="bar-scrubber"><div class="bar-scrubber-filled"></div></div>
+                <span>-3:45</span>
+            </div>
+
+            <div class="bar-controls" id="controlsInfo">
+                <button class="bar-btn">REV</button>
+                <button class="bar-btn play-main glitch" id="playBtn">▶</button>
+                <button class="bar-btn">FWD</button>
+            </div>
+
+            <div class="bar-volume" id="volumeInfo">
+                <span style="font-size: 10px;">🔈</span>
+                <div class="vol-line"><div class="vol-line-filled"></div></div>
+                <span style="font-size: 10px;">🔊</span>
+            </div>
+
+            <audio id="audio" src="https://open.spotify.com/track/3Zz4BKWJamsN9Cq8NekyfM?si=02f3b844b84e48cd"></audio>
         </div>
 
         <div class="container">
             <div class="name" id="name">karasko</div>
             <div class="hello" id="hello">hello guys</div>
         </div>
+
     </div>
 
     <script>
-        const name = document.getElementById('name');
-        const hello = document.getElementById('hello');
-        const widget = document.getElementById('widget');
-        const icon = document.getElementById('icon');
-        const controls = document.getElementById('controls');
-        const volCont = document.getElementById('volCont');
-        const audio = document.getElementById('myaudio');
-        const playBtn = document.getElementById('playBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const volRange = document.getElementById('volume');
+        const elements = {
+            name: document.getElementById('name'),
+            hello: document.getElementById('hello'),
+            widget: document.getElementById('widget'),
+            track: document.getElementById('trackInfo'),
+            progress: document.getElementById('progressInfo'),
+            controls: document.getElementById('controlsInfo'),
+            volume: document.getElementById('volumeInfo'),
+            audio: document.getElementById('audio'),
+            playBtn: document.getElementById('playBtn')
+        };
 
         window.onload = () => {
-            // 1. Появление ника
-            setTimeout(() => name.classList.add('animate-name'), 200);
+            // 1. Сначала вылетает ник
+            setTimeout(() => elements.name.classList.add('slide-down'), 200);
 
-            // 2. Появление основы виджета
-            setTimeout(() => widget.classList.add('widget-visible'), 1200);
+            // 2. Появляется стеклянная основа плеера
+            setTimeout(() => elements.widget.classList.add('widget-visible'), 1000);
 
-            // 3. Прилетает иконка сверху
-            setTimeout(() => icon.classList.add('icon-fly-down'), 1800);
+            // 3. Прилетает инфо о треке сверху
+            setTimeout(() => elements.track.classList.add('animate'), 1500);
 
-            // 4. Появляются кнопки
-            setTimeout(() => controls.classList.add('controls-appear'), 2400);
+            // 4. Проявляются кнопки и прогресс
+            setTimeout(() => elements.progress.classList.add('animate'), 2000);
+            setTimeout(() => elements.controls.classList.add('animate'), 2300);
 
-            // 5. Выезжает громкость слева
-            setTimeout(() => volCont.classList.add('volume-show'), 3000);
+            // 5. Появляется громкость
+            setTimeout(() => elements.volume.classList.add('animate'), 2800);
 
-            // 6. Hello guys
-            setTimeout(() => hello.classList.add('animate-hello'), 3500);
+            // 6. Финальная надпись
+            setTimeout(() => elements.hello.classList.add('animate'), 3300);
         };
 
-        // Логика плеера
-        playBtn.onclick = () => {
-            if (audio.paused) {
-                audio.play();
-                playBtn.innerText = "Pause";
+        // Логика кнопки Play
+        elements.playBtn.onclick = () => {
+            if (elements.audio.paused) {
+                elements.audio.play();
+                elements.playBtn.innerText = "II"; // Пауза
             } else {
-                audio.pause();
-                playBtn.innerText = "Play";
+                elements.audio.pause();
+                elements.playBtn.innerText = "▶";
             }
         };
-
-        stopBtn.onclick = () => {
-            audio.pause();
-            audio.currentTime = 0;
-            playBtn.innerText = "Play";
-        };
-
-        volRange.oninput = (e) => {
-            audio.volume = e.target.value;
-        };
     </script>
-
 </body>
 </html>
